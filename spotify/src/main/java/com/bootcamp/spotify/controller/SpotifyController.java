@@ -85,9 +85,9 @@ public class SpotifyController {
     }
 
     //Track
-    @GetMapping(path = "/track/{id}")
+    @GetMapping(path = "/play/track/{id}")
     public Track retriveTrack(@PathVariable("id") Long id) {
-        return trackService.getTrack(id);
+        return trackService.incrementarReproduccion(id);
     }
 
     @GetMapping(path = "/tracks")

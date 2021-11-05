@@ -80,4 +80,11 @@ public class TrackService implements ITrackService {
     public Track deleteTrack(Long id) {
         return trackMap.remove(id);
     }
+
+    //Incrementar el reproduction en uno
+    public Track incrementarReproduccion(Long id) {
+        Track trackR = trackMap.get(id);
+        trackR.setReproduction(trackR.getReproduction() + 1);
+        return trackR;
+    }
 }
