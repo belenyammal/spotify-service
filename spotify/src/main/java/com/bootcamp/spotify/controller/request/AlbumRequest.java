@@ -1,5 +1,6 @@
 package com.bootcamp.spotify.controller.request;
 
+import com.bootcamp.spotify.domain.model.Artist;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,7 +13,7 @@ public class AlbumRequest{
     @NotNull(message = "El campo id no puede ser null.")
     private long idAlbum;
 
-    private long idArtist;
+    private Artist artist;
 
     private String name;
 

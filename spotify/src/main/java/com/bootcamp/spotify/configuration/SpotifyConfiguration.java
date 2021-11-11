@@ -14,7 +14,7 @@ public class SpotifyConfiguration {
 
     @Bean(name = "albums")
     public List<Album> getAlbums(){
-        return Arrays.asList(new Album(1, 1, "Confessions on a Dance Floor"));
+        return Arrays.asList(new Album(1, new Artist(1, "Madonna", "Pop", "/url"), "Confessions on a Dance Floor"));
     }
 
     @Bean(name = "artists")
@@ -24,6 +24,6 @@ public class SpotifyConfiguration {
 
     @Bean(name = "tracks")
     public List<Track> getTracks(){
-        return Arrays.asList(new Track(1, "Hung Up", 1, 1, 10000, 4));
+        return Arrays.asList(new Track(1, "Hung Up", new Album(1, new Artist(1, "Madonna", "Pop", "/url"), "Confessions on a Dance Floor"), 10000, 4));
     }
 }
