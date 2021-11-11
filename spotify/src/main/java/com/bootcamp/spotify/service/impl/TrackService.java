@@ -70,8 +70,8 @@ public class TrackService implements ITrackService {
             trackMap.remove(request.getId());
             trackMap.put(request.getId(), track);
         } else {
-            log.error("El Pinnaper NO existe");
-            throw new SpotifyNoExistException("El Pinnaper NO existe");
+            log.error("El track NO existe");
+            throw new SpotifyNoExistException("El track NO existe");
         }
         return track;
     }

@@ -1,0 +1,17 @@
+server:
+    port: ${APPLICATION_PORT:8080}
+
+spring:
+    application:
+        name: spotify
+    jpa:
+        spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+        hibernate:
+            ddl-auto: create
+    h2:
+        console.enabled: true
+
+
+
+
+

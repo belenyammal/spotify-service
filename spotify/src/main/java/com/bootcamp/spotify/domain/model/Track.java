@@ -5,15 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+@Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Track {
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
-    private long idArtist;
-    private long idAlbum;
+    @ManyToOne
+    @JoinColumn(name="idAlbum")
+    private Album album;
     private int reproduction;
     private int duration;
 }
