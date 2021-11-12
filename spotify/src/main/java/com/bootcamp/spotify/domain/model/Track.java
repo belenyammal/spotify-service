@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Track {
     @Id
     @GeneratedValue
-    private long id;
+    private long idTrack;
     private String name;
     @ManyToOne
     @JoinColumn(name="idAlbum")

@@ -5,6 +5,7 @@ import com.bootcamp.spotify.domain.mappers.ArtistMapper;
 import com.bootcamp.spotify.domain.model.Artist;
 import com.bootcamp.spotify.exceptions.SpotifyExistException;
 import com.bootcamp.spotify.exceptions.SpotifyNoExistException;
+import com.bootcamp.spotify.repository.ArtistRepository;
 import com.bootcamp.spotify.service.IArtistService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,39 +25,44 @@ public class ArtistService implements IArtistService {
     @Autowired
     private ArtistMapper artistMapper;
 
+    @Autowired
+    private ArtistRepository artistRepository;
+
     @Qualifier("artists")
     @Autowired
     private List<Artist> artists;
 
-    private Map<Long, Artist> artistsMap;
+    private Map<Long, Artist> artistsMap = new HashMap<>();
 
     @PostConstruct
     public void init() {
         //se ejecuta solo una vez cuando se crea el Bean
-        artistsMap = new HashMap<>();
         artists.stream().forEach(artist -> {
-            artistsMap.put(artist.getIdArtist(), artist);
+            artistRepository.save(artist);
         });
     }
 
     @Override
     public Artist getArtist(Long id) {
-        return artistsMap.get(id);
+        return artistRepository.findByIdArtist(id);
     }
 
     @Override
     public List<Artist> getArtists() {
-        return new ArrayList<>(artistsMap.values());
+
+        return artistRepository.findAll();
+
     }
+
 
     @Override
     public Artist createArtist(ArtistRequest request) {
         Artist artist = artistMapper.apply(request);
-        if (artistsMap.get(request.getIdArtist()) == null) {
-            artistsMap.put(request.getIdArtist(), artistMapper.apply(request));
+        if (artistRepository.findById(request.getIdArtist()) != null) {
+            log.error("el artista ya existe");
+            throw new SpotifyExistException("El artista ya existe");
         } else {
-            log.error("El artista ya existe");
-            throw new SpotifyExistException("El Artista ya existe");
+            artistRepository.save(artistMapper.apply(request));
         }
         return artist;
     }
@@ -64,10 +70,9 @@ public class ArtistService implements IArtistService {
     @Override
     public Artist editArtist(ArtistRequest request, Long id) {
         Artist artist = null;
-        if (artistsMap.get(id) != null) {
+        if (artistRepository.findById(id) != null) {
             artist = artistMapper.apply(request);
-            artistsMap.remove(request.getIdArtist());
-            artistsMap.put(request.getIdArtist(), artist);
+            artistRepository.save(artist);
         } else {
             log.error("El artista NO existe");
             throw new SpotifyNoExistException("El artista NO existe");
@@ -77,6 +82,12 @@ public class ArtistService implements IArtistService {
 
     @Override
     public Artist deleteArtist(Long id) {
-        return artistsMap.remove(id);
+        artistRepository.deleteByIdArtist(id);
+        return null;
     }
+
+    public List<Artist> getTopArtistas() {
+        return artistRepository.topArtistas();
+    }
+
 }
