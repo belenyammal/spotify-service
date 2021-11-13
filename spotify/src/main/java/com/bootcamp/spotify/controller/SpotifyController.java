@@ -33,9 +33,25 @@ public class SpotifyController {
     private TrackService trackService;
 
     //Artist
+
+    @PostMapping(path = "/artist")
+    public Artist createArtist(@Validated @RequestBody ArtistRequest request) {
+        return artistService.createArtist(request);
+    }
+
     @GetMapping(path = "/artist/{idArtist}")
     public Artist retriveArtist(@PathVariable("idArtist") Long id) {
         return artistService.getArtist(id);
+    }
+
+    @PutMapping(path = "/artist/{idArtist}")
+    public Artist editArtist(@Validated @RequestBody ArtistRequest request, @PathVariable("idArtist") Long id) {
+        return artistService.editArtist(request, id);
+    }
+
+    @DeleteMapping(path = "/artist/{idArtist}")
+    public Artist deleteArtist(@PathVariable("idArtist") Long id) {
+        return artistService.deleteArtist(id);
     }
 
     //devuelve los top 5 artistas populares
@@ -44,36 +60,23 @@ public class SpotifyController {
         return artistService.getTopArtistas();
     }
 
-    @PostMapping(path = "/artist/")
-    public Artist createArtist(@Validated @RequestBody ArtistRequest request) {
-        return artistService.createArtist(request);
-    }
-
-    @PutMapping(path = "/artist/{id}")
-    public Artist editArtist(@Validated @RequestBody ArtistRequest request, @PathVariable("id") Long id) {
-        return artistService.editArtist(request, id);
-    }
-
-    @DeleteMapping(path = "/artist/{id}")
-    public Artist deleteArtist(@PathVariable("id") Long id) {
-        return artistService.deleteArtist(id);
-    }
 
     //Album
+    @GetMapping(path = "/album")
+    public List<Album> retriveAlbum() {
+        return albumService.getAlbums();
+    }
+
+    @PostMapping(path = "/album")
+    public Album createAlbum(@Validated @RequestBody AlbumRequest request) {
+        return albumService.createAlbum(request);
+    }
+
     @GetMapping(path = "/album/{idAlbum}")
     public Album retriveAlbum(@PathVariable("idAlbum") Long idAlbum) {
         return albumService.getAlbum(idAlbum);
     }
 
-    @GetMapping(path = "/albums")
-    public List<Album> retriveAlbum() {
-        return albumService.getAlbums();
-    }
-
-    @PostMapping(path = "/album/")
-    public Album createAlbum(@Validated @RequestBody AlbumRequest request) {
-        return albumService.createAlbum(request);
-    }
 
     @PutMapping(path = "/album/{idAlbum}")
     public Album editAlbum(@Validated @RequestBody AlbumRequest request, @PathVariable("idAlbum") Long id) {
@@ -86,10 +89,25 @@ public class SpotifyController {
     }
 
     //Track
+    @PostMapping(path = "/track")
+    public Track createTrack(@Validated @RequestBody TrackRequest request) {
+        return trackService.createTrack(request);
+    }
+
     //devuelve un track especifico y le incrementa una reproduccion
     @GetMapping(path = "/play/track/{idTrack}")
     public Track play(@PathVariable("idTrack") Long idTrack) {
         return trackService.incrementarReproduccion(idTrack);
+    }
+
+    @PutMapping(path = "/track/{idTrack}")
+    public Track editTrack(@Validated @RequestBody TrackRequest request, @PathVariable("id") Long id) {
+        return trackService.editTrack(request, id);
+    }
+
+    @DeleteMapping(path = "/track/{idTrack}")
+    public Track deleteTrack(@PathVariable("idTrack") Long id) {
+        return trackService.deleteTrack(id);
     }
 
     //devuelve el top 5 de las canciones mas populares
@@ -105,18 +123,4 @@ public class SpotifyController {
     }
     */
 
-    @PostMapping(path = "/track/")
-    public Track createTrack(@Validated @RequestBody TrackRequest request) {
-        return trackService.createTrack(request);
-    }
-
-    @PutMapping(path = "/track/{idTrack}")
-    public Track editTrack(@Validated @RequestBody TrackRequest request, @PathVariable("id") Long id) {
-        return trackService.editTrack(request, id);
-    }
-
-    @DeleteMapping(path = "/track/{idTrack}")
-    public Track deleteTrack(@PathVariable("idTrack") Long id) {
-        return trackService.deleteTrack(id);
-    }
 }
