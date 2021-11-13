@@ -14,5 +14,6 @@ public class TrackMapper implements Function<TrackRequest, Track> {
     @Override
     public Track apply(TrackRequest trackRequest) {
         return new Track(trackRequest.getIdTrack(), trackRequest.getName(), trackRequest.getAlbum(), trackRequest.getReproduction(), trackRequest.getDuration());
+
     }
 }
