@@ -2,6 +2,7 @@ package com.bootcamp.spotify.repository;
 
 
 import com.bootcamp.spotify.domain.model.Album;
+
 import com.bootcamp.spotify.domain.model.Artist;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,5 @@ public interface AlbumRepository extends CrudRepository<Album, Long> {
     Album deleteByIdAlbum(Long idAlbum);
 
     List<Album> findAll();
+
 }

@@ -48,5 +48,6 @@ public class SpotifyConfiguration {
                 new Track(11, "cancion 7", new Album(5, new Artist(3, "Justin Bieber", "Pop", "/url"), "Purpose"), 1500, 8),
                 new Track(112, "cancion 7", new Album(6, new Artist(6, "Tale of Us", "Electronica", "/url"), "Purpose"), 1600, 8)
         );
+
     }
 }

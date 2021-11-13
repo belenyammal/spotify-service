@@ -16,6 +16,7 @@ public class Track {
     @Id
     @GeneratedValue
     private long idTrack;
+
     private String name;
     @ManyToOne
     @JoinColumn(name="idAlbum")
